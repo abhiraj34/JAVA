@@ -1,0 +1,59 @@
+import java.util.Scanner;
+
+public class ATM {
+    private double balance;
+    
+    public ATM(double initialBalance) {
+        balance = initialBalance;
+    }
+    
+    public double getBalance() {
+        return balance;
+    }
+    
+    public void withdraw(double amount) {
+        if (amount <= 0) {
+            System.out.println("Invalid amount. Please enter a positive value.");
+        } else if (amount > balance) {
+            System.out.println("Insufficient funds.");
+        } else {
+            balance -= amount;
+            System.out.println("Withdrawal successful. Remaining balance: Rs" + balance);
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter initial balance: Rs");
+        double initialBalance = scanner.nextDouble();
+        
+        ATM atm = new ATM(initialBalance);
+        
+        while (true) {
+            System.out.println("\nATM Menu:");
+            System.out.println("1. Check Balance");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Exit");
+            System.out.print("Select an option: ");
+            
+            int choice = scanner.nextInt();
+            
+            switch (choice) {
+                case 1:
+                    System.out.println("Current balance: Rs" + atm.getBalance());
+                    break;
+                case 2:
+                    System.out.print("Enter the withdrawal amount: Rs");
+                    double withdrawAmount = scanner.nextDouble();
+                    atm.withdraw(withdrawAmount);
+                    break;
+                case 3:
+                    System.out.println("Thank you for using the ATM. Goodbye!");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid option. Please select a valid option.");
+            }
+        }
+    }
+}
